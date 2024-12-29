@@ -1,0 +1,38 @@
+<div class="container">
+  <%= form_with url: export_csv_customers_path, method: :post, local: true do |f| %>
+    <div class="mb-3">
+      <%= f.label :email, "Enter your email to receive the CSV file" %>
+      <%= f.email_field :email, class: "form-control", required: true %>
+      <%= f.submit "Export to CSV", class: "btn btn-primary mt-3" %>
+    </div>
+  <% end %>
+
+  <table class="table table-striped table-bordered table-hover">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Country</th>
+        <th>Phone</th>
+        <th>Age</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @customers.each_with_index do |customer| %>
+        <tr>
+          <td><%= customer.id %></td>
+          <td><%= customer.name %></td>
+          <td><%= customer.email %></td>
+          <td><%= customer.country %></td>
+          <td><%= customer.phone %></td>
+          <td><%= customer.age %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+  <div class="pagination">
+    <%= paginate @customers %>
+  </div>
+</div>

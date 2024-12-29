@@ -7,3 +7,17 @@
 #   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
+
+require 'faker'
+
+200000.times do
+  Customer.create(
+    name: Faker::Name.name,
+    email: Faker::Internet.unique.email,
+    country: Faker::Address.country,
+    phone: Faker::PhoneNumber.phone_number,
+    age: Faker::Number.between(from: 18, to: 30)
+  )
+end
+
+puts "200,000 customers have been created."

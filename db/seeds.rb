@@ -10,7 +10,7 @@
 
 require 'faker'
 
-200000.times do
+2000.times do
   Customer.create(
     name: Faker::Name.name,
     email: Faker::Internet.unique.email,

@@ -1,0 +1,35 @@
+version: '3.8'
+
+services:
+  app:
+    image: demo_solid_queue
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: always
+    expose:
+      - "3000:3000"
+    env_file:
+      - .env
+    networks:
+      - demo_solid_queue_app_network
+  nginx:
+    image: nginx:latest
+    restart: always
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./log/nginx:/var/log/nginx
+      - /home/ubuntu/certbot/live:/etc/letsencrypt/live:ro
+      - /home/ubuntu/certbot/archive:/etc/letsencrypt/archive:ro
+      - /home/ubuntu/certbot/renewal:/etc/letsencrypt/renewal:ro
+    depends_on:
+      - app
+    networks:
+      - demo_solid_queue_app_network
+
+networks:
+  demo_solid_queue_app_network:
+    driver: bridge

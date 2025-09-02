@@ -10,8 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2024_12_29_040227) do
-  create_table "customers", force: :cascade do |t|
+ActiveRecord::Schema[8.0].define(version: 2025_08_12_014134) do
+  create_table "addresses", force: :cascade do |t|
+    t.string "country", null: false
+    t.string "street", null: false
+    t.string "city", null: false
+    t.string "uuid", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "clients", force: :cascade do |t|
     t.string "name"
     t.string "email"
     t.string "country"
@@ -20,4 +29,20 @@ ActiveRecord::Schema[8.0].define(version: 2024_12_29_040227) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
+
+# Could not dump table "customers" because of following StandardError
+#   Unknown type 'uuid' for column 'uuid'
+
+
+  create_table "my_clients", primary_key: "uuid", id: :string, force: :cascade do |t|
+    t.string "name"
+    t.string "email"
+    t.string "country"
+    t.string "phone"
+    t.integer "age"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_foreign_key "addresses", "my_clients", column: "uuid", primary_key: "uuid"
 end

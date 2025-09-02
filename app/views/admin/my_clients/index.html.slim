@@ -1,0 +1,10 @@
+table.table.table-striped.table-hover
+  thead
+    tr
+      th Name
+      th Email
+  tbody
+    - @my_clients.each do |client|
+      tr
+        td = client.name
+        td = client.email

@@ -10,8 +10,31 @@
 
 require 'faker'
 
-200000.times do
-  Customer.create(
+# 200000.times do
+#   Customer.create(
+#     name: Faker::Name.name,
+#     email: Faker::Internet.unique.email,
+#     country: Faker::Address.country,
+#     phone: Faker::PhoneNumber.phone_number,
+#     age: Faker::Number.between(from: 18, to: 30)
+#   )
+# end
+# puts "200,000 customers have been created."
+
+# 3.times do
+#   Client.create(
+#     name: Faker::Name.name,
+#     email: Faker::Internet.unique.email,
+#     country: Faker::Address.country,
+#     phone: Faker::PhoneNumber.phone_number,
+#     age: Faker::Number.between(from: 18, to: 30)
+#   )
+# end
+# puts "3 clients have been created."
+
+3.times do
+  MyClient.create(
+    uuid: SecureRandom.uuid,
     name: Faker::Name.name,
     email: Faker::Internet.unique.email,
     country: Faker::Address.country,
@@ -19,5 +42,4 @@ require 'faker'
     age: Faker::Number.between(from: 18, to: 30)
   )
 end
-
-puts "200,000 customers have been created."
+puts "3 clients have been created."

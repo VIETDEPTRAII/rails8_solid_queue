@@ -9,7 +9,7 @@ class CustomersController < ApplicationController
     user_email = params[:email]
     export_time = params[:export_time]
     if export_time.present?
-      time_to_run = Time.parse(export_time)
+      time_to_run = Time.zone.parse(export_time)
       ExportCustomersCsvJob.set(wait_until: time_to_run).perform_later(user_email)
       flash[:success] = "CSV export will process at #{time_to_run.strftime('%Y-%m-%d %H:%M:%S')}."
     else

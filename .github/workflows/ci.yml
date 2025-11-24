@@ -26,7 +26,7 @@ jobs:
         run: bin/rubocop -f github
 
   rubocop-with-reviewdog:
-    name: runner / rubocop
+    name: rubocop with reviewdog
     runs-on: ubuntu-latest
     env:
       BUNDLE_ONLY: rubocop
@@ -40,5 +40,6 @@ jobs:
         with:
           reporter: github-pr-review # Default is github-pr-check
           fail_level: any
+          only_changed: true
           skip_install: true
           use_bundler: true

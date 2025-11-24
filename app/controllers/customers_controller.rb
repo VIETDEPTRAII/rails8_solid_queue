@@ -1,5 +1,5 @@
 class CustomersController < ApplicationController
-  layout "solid-queue"
+  layout 'solid-queue'
 
   def index
     @customers = Customer.page(params[:page])
@@ -14,7 +14,7 @@ class CustomersController < ApplicationController
       flash[:success] = "CSV export will process at #{time_to_run.strftime('%Y-%m-%d %H:%M:%S')}."
     else
       ExportCustomersCsvJob.perform_later(user_email)
-      flash[:success] = "CSV export is being processed. You will receive an email when it is ready."
+      flash[:success] = 'CSV export is being processed. You will receive an email when it is ready.'
     end
 
     redirect_to customers_path

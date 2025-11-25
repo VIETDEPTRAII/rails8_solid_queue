@@ -1,5 +1,5 @@
 class CustomersController < ApplicationController
-  layout 'solid-queue'
+  layout "solid-queue"
 
   def index
     @customers = Customer.page(params[:page])

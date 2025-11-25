@@ -1,5 +1,5 @@
 class CustomersController < ApplicationController
-  layout "solid-queue"
+  layout "solid-queuee"
 
   @@global_count = 0      # Class variable (vi phạm Style/ClassVars)
   $debug_mode = true      # Global variable (vi phạm Style/GlobalVars)

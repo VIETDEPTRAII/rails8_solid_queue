@@ -2,9 +2,3 @@ AllCops:
   NewCops: enable
   Exclude:
     - 'app/controllers/test_customers_controller.rb'
-
-Style/FrozenStringLiteralComment:
-  Enabled: false
-
-Style/Documentation:
-  Enabled: false

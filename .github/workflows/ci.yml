@@ -15,7 +15,7 @@ jobs:
       BUNDLE_ONLY: rubocop
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
-      - uses: ruby/setup-ruby@1a615958ad9d422dd932dc1d5823942ee002799f # v1.227.0
+      - uses: ruby/setup-ruby@211ffaaa5f8dda97e9e8bca4e70d0fbaf2f8c41c # v1.272.0
         with:
           ruby-version: .ruby-version
           bundler-cache: true

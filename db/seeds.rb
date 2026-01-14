@@ -10,7 +10,7 @@
 
 require 'faker'
 
-200000.times do
+2000.times do
   Customer.create(
     name: Faker::Name.name,
     email: Faker::Internet.unique.email,
@@ -20,4 +20,4 @@ require 'faker'
   )
 end
 
-puts "200,000 customers have been created."
+puts "2000 customers have been created."

@@ -1,10 +1,10 @@
-development:
-  export_and_send_customer_csv:
-    class: ExportCustomersCsvJob
-    queue: default
-    args: ['admin@gmail.com']
-    schedule: every minute
-  # periodic_command:
-  #   command: "SoftDeletedRecord.due.delete_all"
-  #   priority: 2
-  #   schedule: at 5am every day
+# development:
+#   export_and_send_customer_csv:
+#     class: ExportCustomersCsvJob
+#     queue: default
+#     args: ['admin@gmail.com']
+#     schedule: every minute
+#   periodic_command:
+#     command: "SoftDeletedRecord.due.delete_all"
+#     priority: 2
+#     schedule: at 5am every day

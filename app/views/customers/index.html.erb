@@ -1,5 +1,5 @@
 <div class="container">
-  <h1 class="text-center">Customers list</h1>
+  <h1 class="text-center">Customer list</h1>
   <%= form_with url: export_csv_customers_path, method: :post, local: true do |f| %>
     <div class="mb-3">
       <%= f.label :email, "Enter your email to receive the CSV file" %>

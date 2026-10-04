@@ -26,3 +26,64 @@ jobs:
           only_changed: true
           skip_install: true
           use_bundler: true
+
+  rubocop:
+    name: rubocop
+    runs-on: ubuntu-latest
+    env:
+      BUNDLE_ONLY: rubocop
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+      - uses: ruby/setup-ruby@1a615958ad9d422dd932dc1d5823942ee002799f # v1.227.0
+        with:
+          ruby-version: .ruby-version
+          bundler-cache: true
+      - name: Run rubocop
+        run: bin/rubocop --force-exclusion $(git ls-files -- '*.rb' ':!app/controllers/test_customers_controller.rb')
+
+  brakeman:
+    name: brakeman
+    runs-on: ubuntu-latest
+    env:
+      BUNDLE_ONLY: rubocop
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+      - uses: ruby/setup-ruby@1a615958ad9d422dd932dc1d5823942ee002799f # v1.227.0
+        with:
+          ruby-version: .ruby-version
+          bundler-cache: true
+      - name: Run brakeman
+        run: bin/brakeman --no-pager
+
+  test:
+    name: test
+    runs-on: ubuntu-latest
+    env:
+      RAILS_ENV: test
+      MYSQL_HOST: 127.0.0.1
+      MYSQL_USERNAME: root
+      MYSQL_PASSWORD: password
+      MYSQL_DATABASE: test_db
+    services:
+      mysql:
+        image: mysql:8.0
+        env:
+          MYSQL_ROOT_PASSWORD: password
+          MYSQL_DATABASE: test_db
+        ports:
+          - 3306:3306
+        options: >-
+          --health-cmd="mysqladmin ping"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=5
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+      - uses: ruby/setup-ruby@1a615958ad9d422dd932dc1d5823942ee002799f # v1.227.0
+        with:
+          ruby-version: .ruby-version
+          bundler-cache: true
+      - name: Prepare database
+        run: bin/rails db:test:prepare
+      - name: Run tests
+        run: bin/rails test

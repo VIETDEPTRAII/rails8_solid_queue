@@ -1,21 +1,25 @@
-require "csv"
+# frozen_string_literal: true
+
+require 'csv'
 
 class ExportCustomersCsvJob < ApplicationJob
   queue_as :default
 
+  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
   def perform(user_email)
     customers = Customer.all
 
     csv_data = CSV.generate(headers: true) do |csv|
-      csv << [ "ID", "Name", "Email", "Country", "Phone", "Age" ]
+      csv << %w[ID Name Email Country Phone Age]
       customers.each do |customer|
-        csv << [ customer.id, customer.name, customer.email, customer.country, customer.phone, customer.age ]
+        csv << [customer.id, customer.name, customer.email, customer.country, customer.phone, customer.age]
       end
     end
 
-    file_path = Rails.root.join("tmp", "customers-#{Date.today}.csv")
+    file_path = Rails.root.join('tmp', "customers-#{Date.today}.csv")
     File.write(file_path, csv_data)
     CustomerMailer.send_csv(user_email, file_path).deliver_now
-    File.delete(file_path) if File.exist?(file_path)
+    FileUtils.rm_f(file_path)
   end
+  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 end

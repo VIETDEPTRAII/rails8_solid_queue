@@ -46,7 +46,7 @@ gem "faker"
 gem "kaminari"
 gem "letter_opener_web"
 gem "mission_control-jobs"
-gem "mysql2", "~> 0.5.6"
+gem "mysql2", "~> 0.5.7"
 
 group :development, :test, :rubocop do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
